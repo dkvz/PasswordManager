@@ -38,6 +38,8 @@ It will give you a whole bunch of warnings, that's normal. The tests should all 
 
 -> My npm scripts in PasswordManagerApp have to change.
 
+I'm going to try the "multiple workspaces" npm thingy to hopefuly be able to install and run npm scripts from the project root.
+
 
 # Web App
 I had to reinitialize the project because I initially started working on the older Razor template which has JQuery and a Carousel on the home page. Yeah I'm not kidding.
