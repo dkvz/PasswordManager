@@ -1,0 +1,124 @@
+﻿@page
+@model IndexModel
+@{
+  ViewData["Title"] = "Login";
+}
+
+<div class="modal" id="loading">
+  <div class="modal-content flex-center">
+    <div class="loading">Loading...</div>
+  </div>
+</div>
+
+<div class="modal" id="passwordModal">
+  <div class="modal-content">
+    <form id="mPwdForm" method="post" class="flex-form">
+      <label class="mb-1" for="modalPasswordInput">Enter master password:</label>
+      <div class="flex-form-row">
+        <input type="password" id="modalPasswordInput" />
+      </div>
+      <div class="flex-form-row no-mb">
+        <button type="button" class="btn" id="passwordModalCancelBtn">Cancel</button>
+        <button type="submit" class="btn" id="passwordModalOKBtn">OK</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="notification" hidden="true" id="notification"></div>
+
+<div class="slides-container">
+  <section>
+    <form id="loginForm" class="flex-form" method="post">
+      <div class="flex-form-row">
+        <label class="stretched-label" for="dataFile">Data file:</label>
+        <select id="dataFile">
+          @foreach (var file in Model.DataFiles)
+          {
+            <option>@file</option>
+          }
+        </select>
+      </div>
+
+      <div class="flex-form-row">
+        <input type="password" placeholder="Master Password" id="masterPassword" />
+        <input type="hidden" value="@Model.Session" id="sessionId" />
+      </div>
+
+      <div class="sequence-grid">
+        @for(int y = 0; y < Model.GridHeight; y++)
+        {
+          <div class="sequence-grid-row">
+            @for(int x = 0; x < Model.GridWidth; x++)
+            {
+              <button type="button" data-y="@(y+1)" data-x="@(x+1)">&nbsp;</button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex-form-row">
+        <button class="btn" type="submit">Confirm</button>
+        <button class="btn" type="reset" id="resetBtn">Reset</button>
+      </div>
+    </form>
+  </section>
+  <section class="hidden">
+
+    <div class="flex-form-row no-mb">
+      <div class="big-text">Don't leave this tab open!</div>
+      <button class="btn" type="button" id="logoutBtn">Logout</button>
+    </div>
+    <div class="flex-form-row no-mb d-none" id="unsavedChanges">
+      <div class="medium-text text-warn">You have unsaved changes</div>
+      <button class="btn" type="button" id="saveChangesBtn">Save changes</button>
+    </div>
+    <input class="mt-1" type="text" id="filterInput" placeholder="Filter..." />
+    <form id="selectEntryForm" class="flex-form mb-1" method="post">
+      <select id="nameSelect" size="10">
+        <!-- Filled by JS -->
+      </select>
+      <button class="btn" type="submit" id="getPwdBtn">Get password</button>
+    </form>
+
+    <div class="toolbar">
+      <button aria-label="New" title="New password" id="newBtn">
+        <img src="/images/file.svg" />
+      </button>
+      <button aria-label="Save changes" title="Save changes" id="saveBtn">
+        <img src="/images/save.svg" />
+      </button>
+      <button aria-label="Show/hide password" title="Show/hide password" id="showHideBtn">
+        <img src="/images/eye.svg" />
+      </button>
+      <button aria-label="Delete this entry" title="Delete entry" id="deleteBtn">
+        <img src="/images/trash-alt.svg" />
+      </button>
+    </div>
+
+    <div class="flex-form-row mt-1">
+      <label for="nameInput" class="mr-1">Entry name:</label>
+      <input type="text" id="nameInput" />
+    </div>
+
+    <div class="password-input">
+      <input type="password" id="passwordInput" />
+      <button type="button" id="clipboardBtn" aria-label="Copy to clipboad" title="Copy to clipboard">
+        <img src="/images/clipboard.svg" />
+      </button>
+    </div>
+
+    <p id="entryDate"></p>
+
+    <input type="password" id="hiddenPasswordInput" class="d-none" />
+
+  </section>
+</div>
+
+@section Scripts {
+  <script>
+  if (!window.Uint8Array || !window.crypto || !window.crypto.subtle || !window.fetch) {
+    window.location.href = '/unsupported';
+  }
+  </script>
+}

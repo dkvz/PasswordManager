@@ -1,0 +1,9 @@
+obj
+bin
+var
+packages
+*.suo
+*.user
+*.sln.docstates
+/pwdfile
+*.pwd

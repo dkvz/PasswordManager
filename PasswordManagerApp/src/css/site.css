@@ -1,0 +1,376 @@
+:root {
+  --dark-color: #333;
+  --light-color: #edebeb;
+  --succes-color: darkgreen;
+  --error-color: darkred;
+  --warn-color: darkorange;
+  --border-color: silver;
+  --accent-color: teal;
+}
+
+html {
+  font-size: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body[data-overlay]:after {
+  content: "";
+  display: block;
+  /*
+  Parent has to be position relative to
+  use absolute here.
+  */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+}
+
+body > header {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+body > footer {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5);
+}
+
+body > main {
+  flex: 1;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+body > main, .flex-form, .sequence-grid, .slides-container > section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.sequence-grid .sequence-grid-row, .flex-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sequence-grid-row > button {
+  min-height: 80px;
+}
+
+.flex-form-row, .sequence-grid {
+  margin-bottom: 1rem;
+}
+
+.flex-form-row.no-mb {
+  margin-bottom: 0rem;
+}
+ 
+.flex-form-row > button, 
+.flex-form-row > input, 
+.sequence-grid-row > button {
+  flex: 1;
+}
+
+.flex-form-row > input {
+  max-width: 100%;
+}
+
+.stretched-label {
+  flex: 1;
+}
+
+.flex-form-row > button {
+  max-width: 250px;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
+.mr-2 {
+  margin-right: 2rem;
+}
+
+.btn {
+  background-color: var(--dark-color);
+  padding: 0.5rem 1.2rem;
+  font-size: 1.1rem;
+  border: 2px solid silver;
+  color: var(--light-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background-color: #777;
+}
+
+input[type="text"], input[type="password"] {
+  padding: 12px;
+  border: 2px solid var(--dark-color);
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border: 4px solid silver;
+  padding: 10px;
+}
+
+.slides-container {
+  position: relative;
+  /*width: 100%;
+  flex: 1;*/
+}
+
+.slides-container > section {
+  position: relative;
+  /*transition: transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);*/
+}
+
+.present-forward, .present-backward {
+  opacity: 1;
+  display: initial;
+}
+
+.present-forward {
+  animation: future-anim 0.5s ease-out;
+}
+
+.present-backward {
+  animation: past-anim 0.5s ease-out;
+}
+
+.slides-container > .hidden {
+  opacity: 0;
+}
+
+/* Take it out of the DOM entirely */
+.d-none, .slides-container > .hidden {
+  display: none;
+}
+
+.app-title {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  text-align: center;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.text-danger {
+  color: var(--error-color);
+}
+
+.text-warn {
+  color: var(--warn-color);
+}
+
+.big-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.medium-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.notification {
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.notification.info {
+  color: var(--accent-color);
+}
+
+.notification.success {
+  background-color: var(--succes-color);
+  color: var(--light-color);
+}
+
+.notification.error {
+  background-color: var(--error-color);
+  color: var(--light-color);
+}
+
+.notification.warn {
+  background-color: var(--warn-color);
+  color: var(--dark-color);
+}
+
+.notification > span.close {
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin-left: 0.4rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.toolbar img, .password-input img {
+  height: 32px;
+  width: 32px;
+}
+
+.toolbar button, .password-input button {
+  border: 2px solid var(--dark-color);
+  border-radius: 5px;
+  background-color: var(--light-color);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  transition: all 0.2s;
+}
+
+.toolbar button:hover, .password-input button:hover {
+  background-color: silver;
+}
+
+.password-input {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.password-input input {
+  flex: 1;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  z-index: 11;
+  /* For my use case I need it centered: */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-content {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  border: 4px solid var(--border-color);
+  padding: 1rem;
+  width: 450px;
+  max-width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: bolder;
+  color: var(--accent-color);
+  animation: scaler 0.6s infinite; 
+}
+
+select[size] {
+  font-size: 1.1rem;
+}
+
+/** I use this animation as a loading spinner **/
+@keyframes scaler {
+  0% {transform: scale(1)}
+  50% {transform: scale(1.25)}
+  100% {transform: scale(1)}
+}
+
+/** Slides animations: **/
+@keyframes future-anim {
+  0% {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;  
+  }
+}
+
+@keyframes past-anim {
+  0% {
+    transform: translateX(-150%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;  
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  body > main {
+    width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
