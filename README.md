@@ -1,13 +1,23 @@
-# Warning
-**I'm currently refactoring the project structure in a big way (going mono-repo), things may not work here, the other "PasswordManager*" repos still have working builds (I think (they should)).**
-
 # DkVZ Password Manager
-
-Several projects to run my own personal password manager, which is a web app using both a .NET backend and the JavaScript security API.
+Several projects parts of my own personal password manager, which is a web app using both a .NET backend and the JavaScript security API.
 
 This used to be a .NET project with a dependency as a submodule and no .sln files, because I created it on Linux and the CLI tools will basically allow you to use any project layout.
 
 The migration explains why there are so few commits in the project as parent projects have been made private.
+
+## Running the web app & build assets
+First install the client dependencies:
+```
+npm install
+```
+
+Then use the following to watch the client files and run dotnet in watch mode for the Web App:
+```
+npm run dev
+```
+
+## Building for production
+It's discussed in a later section, I haven't tried building to production with the new project layout yet.
 
 ## Project migration
 Just documenting it in case I need to do the same thing later.
@@ -40,6 +50,7 @@ It will give you a whole bunch of warnings, that's normal. The tests should all 
 
 I'm going to try the "multiple workspaces" npm thingy to hopefuly be able to install and run npm scripts from the project root.
 
+I think it works, all of the modules appear to be at the root.
 
 # Web App
 I had to reinitialize the project because I initially started working on the older Razor template which has JQuery and a Carousel on the home page. Yeah I'm not kidding.
@@ -79,14 +90,7 @@ npm install -g parcel-bundler
 ```
 
 ## Configuration
-
-
-## Running the project
-
-To run the project:
-```
-npm run dev
-```
+TODO
 
 ## Building for production
 

@@ -1,0 +1,26 @@
+{
+  "name": "password-manager",
+  "version": "1.0.0",
+  "description": "My personal password manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "dotnet test Tests",
+    "dev": "npm run dev -w=PasswordManagerApp",
+    "build-assets": "npm run build-assets -w=PasswordManagerApp",
+    "build-win": "npm run build-win -w=PasswordManagerApp",
+    "build-linux": "npm run build-linux -w=PasswordManagerApp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkvz/PasswordManager.git"
+  },
+  "workspaces": [
+    "PasswordManagerApp"
+  ],
+  "author": "dk@dkvz.eu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dkvz/PasswordManager/issues"
+  },
+  "homepage": "https://github.com/dkvz/PasswordManager#readme"
+}
