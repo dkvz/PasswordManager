@@ -28,7 +28,7 @@ dotnet run -- -h
 ```
 
 ## Building the executable
-Using `dotnet build` creates a dll that you can run with ``dotnet run` but that's not helping.
+Using `dotnet build` creates a dll that you can run with `dotnet run` but that's not helping.
 
 It looks like you need to specify a target to build an executable.
 
