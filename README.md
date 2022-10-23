@@ -16,6 +16,12 @@ Then use the following to watch the client files and run dotnet in watch mode fo
 npm run dev
 ```
 
+Running on Arch requires exporting some weird variable to avoid getting an error about ICU not existing:
+```
+export CLR_ICU_VERSION_OVERRIDE=71.1
+```
+I guess that should be fixed someday.
+
 ## Building for production
 It's discussed in a later section, I haven't tried building to production with the new project layout yet.
 
