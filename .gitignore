@@ -29,7 +29,8 @@ msbuild.wrn
 var/
 node_modules
 .cache
-wwwroot/assets
+**/wwwroot/assets
 appsettings.production.json
 appsettings.Production.json
 .vscode
+.parcel-cache

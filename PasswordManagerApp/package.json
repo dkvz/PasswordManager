@@ -2,13 +2,12 @@
   "name": "password-manager-app",
   "version": "1.0.0",
   "description": "Personal Password Manager app. The \"database\" has to be created using a separate CLI tool",
-  "main": "site.js",
   "scripts": {
     "test": "dotnet test ../Tests",
-    "build-assets": "npx parcel build src/site.js -d wwwroot/assets --public-url /assets",
+    "build-assets": "npx parcel build src/site.js --dist-dir wwwroot/assets --public-url /assets",
     "build-win": "npm run build-assets && dotnet publish -c Release -r win-x64",
     "build-linux": "npm run build-assets && dotnet publish -c Release -r debian-x64",
-    "dev": "concurrently -k \"npx parcel watch src/site.js -d wwwroot/assets --public-url /assets\" \"dotnet watch run\""
+    "dev": "concurrently -k \"npx parcel watch src/site.js --dist-dir wwwroot/assets --public-url /assets\" \"dotnet watch run\""
   },
   "repository": {
     "type": "git",
@@ -20,12 +19,16 @@
     "url": "https://github.com/dkvz/PasswordManagerApp/issues"
   },
   "homepage": "https://github.com/dkvz/PasswordManagerApp#readme",
-  "devDependencies": {
+  "dependencies": {
     "aes-js": "3.1.2",
     "buffer": "^5.2.1",
     "concurrently": "^4.1.1",
     "cssnano": "^4.1.10",
-    "pbkdf2": "3.0.17",
-    "lodash": ">=4.17.13"
+    "lodash": ">=4.17.13",
+    "pbkdf2": "3.0.17"
+  },
+  "devDependencies": {
+    "events": "^3.3.0",
+    "process": "^0.11.10"
   }
 }
