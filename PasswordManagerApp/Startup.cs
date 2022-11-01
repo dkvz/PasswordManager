@@ -1,14 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.HttpOverrides;
 using PasswordManagerApp.Models;
 
@@ -33,7 +23,8 @@ namespace PasswordManagerApp
         options.MinimumSameSitePolicy = SameSiteMode.None;
       }); */
 
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      services.AddControllers();
       // Adding my SessionManager singleton for dependency injection:
       services.AddSingleton<ISessionManager, SessionManager>();
       // Adding the singleton responsible for notifications:
@@ -67,7 +58,14 @@ namespace PasswordManagerApp
       app.UseStaticFiles();
       //app.UseCookiePolicy();
 
-      app.UseMvc();
+      // Used to be required for .NET 2:
+      //app.UseMvc();
+
+      app.UseRouting();
+      app.UseEndpoints(opts =>
+      {
+        opts.MapControllers();
+      });
     }
   }
 }
