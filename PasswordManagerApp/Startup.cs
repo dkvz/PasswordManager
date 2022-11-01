@@ -25,6 +25,7 @@ namespace PasswordManagerApp
 
       //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
       services.AddControllers();
+      services.AddRazorPages();
       // Adding my SessionManager singleton for dependency injection:
       services.AddSingleton<ISessionManager, SessionManager>();
       // Adding the singleton responsible for notifications:
@@ -65,6 +66,7 @@ namespace PasswordManagerApp
       app.UseEndpoints(opts =>
       {
         opts.MapControllers();
+        opts.MapRazorPages();
       });
     }
   }
