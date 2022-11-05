@@ -210,23 +210,25 @@ namespace PasswordManager.Security
                 byte[] firstPart = null;
                 if (lastBlock > 0)
                 {
-                  firstPart = new byte[lastBlock];
-                  cryptoStream.Read(firstPart, 0, lastBlock);
+                  //firstPart = new byte[lastBlock];
+                  //cryptoStream.Read(firstPart, 0, lastBlock);
+                  firstPart = readStreamUpTo(cryptoStream, lastBlock);
                   // We got data up to index lastBlock - 1.
                   // Or so I think.
                 }
                 // Start reading from lastBlock, check if we 
                 // got byte value 0.
-                byte[] lastPart = new byte[BlockBitSize / 8];
+                //byte[] lastPart = new byte[BlockBitSize / 8];
                 int fromFirstPart = 0;
                 if (firstPart != null) fromFirstPart = firstPart.Length;
-                cryptoStream.Read(
-                  lastPart, 
-                  0, 
+                /*cryptoStream.Read(
+                  lastPart,
+                  0,
                   lastPart.Length
-                );
+                );*/
+                var lastPart = readStreamUpTo(cryptoStream, BlockBitSize / 8);
                 int i;
-                for (i = 0; i < lastPart.Length; i++) 
+                for (i = 0; i < lastPart.Length; i++)
                 {
                   if (lastPart[i] == 0x00) break;
                 }
@@ -304,6 +306,25 @@ namespace PasswordManager.Security
       byte[] decrypted = decryptToByteArray(ciphertext, key);
       string ret = Encoding.UTF8.GetString(decrypted, 0, decrypted.Length);
       Array.Clear(decrypted, 0, decrypted.Length);
+      return ret;
+    }
+
+    private static byte[] readStreamUpTo(CryptoStream stream, int length)
+    {
+      // At some point while upgrading to .NET 6, it came up
+      // that the Read method on CryptoStream really doesn't
+      // necessarily read up to where you want.
+      // So I had to write my own dumb loop to make it so.
+      var ret = new byte[length];
+      int bytesRead = 0;
+      while (bytesRead < length)
+      {
+        var buffer = new byte[16];
+        var byteCount = stream.Read(buffer, 0, buffer.Length);
+        if (byteCount == 0) break;
+        Array.Copy(buffer, 0, ret, bytesRead, byteCount);
+        bytesRead += byteCount;
+      }
       return ret;
     }
 
