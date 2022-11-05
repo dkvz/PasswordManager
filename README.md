@@ -5,6 +5,21 @@ This used to be a .NET project with a dependency as a submodule and no .sln file
 
 The migration explains why there are so few commits in the project as parent projects have been made private.
 
+There's been another migration after that to upgrade from .NET 2.2 to 6.0. Which was an adventure alright.
+
+## Dependencies / Requirements
+- NodeJS 12+
+- .NET SDK 6.0
+
+I use Parcel.JS to bundle static assets. Since Parcel weighs more than 90MB I started installing it globally, so it's not in package.json and is called through npx.
+
+Make sure parcel is installed globally:
+```
+npm install -g parcel-bundler
+```
+
+Since I've had breaking changes issues with Parcel I should just use it as a normal dependency at some point.
+
 ## Running the web app & build assets
 First install the client dependencies:
 ```
@@ -83,16 +98,6 @@ We then need to tell the compiler to stop trying to watch all the files inside s
 <PropertyGroup>
   <DefaultItemExcludes>$(DefaultItemExcludes);submodules\**</DefaultItemExcludes>
 </PropertyGroup>
-```
-
-## Dependencies
-You need NodeJS 10+.
-
-I use Parcel.JS to bundle static assets. Since Parcel weighs more than 90MB I started installing it globally, so it's not in package.json and is called through npx.
-
-Make sure parcel is installed globally:
-```
-npm install -g parcel-bundler
 ```
 
 ## Configuration
@@ -528,6 +533,7 @@ This is of course also possible through extensive memory dumping but that is **m
 I'm going to add a todo post to try and get the HTTPS Kestrel support.
 
 # TODO
+- [ ] Put parcel back as a dependency, I've had breaking changes making me work overtime to fix it.
 - [x] Remove the old project from Github -> Made it private.
 - [x] Use CSS variables while I'm at it.
 - [x] There doesn't seem to be a handler for error 404s -> Quick fixed this by adding `app.UseStatusCodePages();``in Startup.cs. Not awesome but it works.

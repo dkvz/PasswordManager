@@ -5,8 +5,8 @@
   "scripts": {
     "test": "dotnet test ../Tests",
     "build-assets": "npx parcel build src/site.js --dist-dir wwwroot/assets --public-url /assets",
-    "build-win": "npm run build-assets && dotnet publish -c Release -r win-x64",
-    "build-linux": "npm run build-assets && dotnet publish -c Release -r debian-x64",
+    "build-win": "npm run build-assets && dotnet publish --self-contained -c Release -r win-x64",
+    "build-linux": "npm run build-assets && dotnet publish -r debian-x64 -c Release --self-contained",
     "dev": "concurrently -k \"npx parcel watch src/site.js --dist-dir wwwroot/assets --public-url /assets\" \"dotnet watch run\""
   },
   "repository": {
