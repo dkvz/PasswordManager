@@ -73,7 +73,7 @@ namespace PasswordManager.Security
     {
       if (IsEncryptedList)
         throw new ApplicationException("The password list is encrypted in memory");
-     
+
       saveToFile(
         null,
         ref masterPassword,
@@ -91,10 +91,10 @@ namespace PasswordManager.Security
       var dummy = PasswordManagerData.veryDummyRandomString();
 
       saveToFile(
-        masterPassword, 
-        ref dummy, 
-        ref fakePassword, 
-        placeholderGenerator, 
+        masterPassword,
+        ref dummy,
+        ref fakePassword,
+        placeholderGenerator,
         encryptArrayKey
       );
     }
@@ -113,7 +113,8 @@ namespace PasswordManager.Security
         // I thought of using Linq but you can't use Ref inside
         // of lambdas so... Yeah.
         toSave = new List<GenericPasswordEntry>();
-        foreach(var e in PasswordEntries) {
+        foreach (var e in PasswordEntries)
+        {
           toSave.Add(
             new GenericPasswordEntry(
               e.Name,
@@ -140,7 +141,7 @@ namespace PasswordManager.Security
       using (var file = new StreamWriter(Filename))
       {
         file.WriteLine(
-          arrayPassword != null ? 
+          arrayPassword != null ?
             AES256.Encrypt(JsonConvert.SerializeObject(toSave), arrayPassword) :
             AES256.Encrypt(JsonConvert.SerializeObject(toSave), stringPassword)
         );
@@ -163,12 +164,7 @@ namespace PasswordManager.Security
 
     private void saveOriginalPasswordHash(byte[] masterPassword)
     {
-      salt = new byte[32];
-      using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
-      {
-        // Fill the array with random values:
-        rngCsp.GetBytes(salt);
-      }
+      salt = AES256.GenerateRandomByteArray(32);
       originalPasswordHash = getPasswordHash(masterPassword);
     }
 
@@ -178,7 +174,7 @@ namespace PasswordManager.Security
       Array.Copy(salt, concat, salt.Length);
       Array.Copy(password, 0, concat, salt.Length, password.Length);
       byte[] result;
-      using (SHA256 sha256Hash = SHA256.Create())  
+      using (SHA256 sha256Hash = SHA256.Create())
       {
         // Compute the hash:
         result = sha256Hash.ComputeHash(concat);
@@ -223,8 +219,8 @@ namespace PasswordManager.Security
       if (source != null && source.Length > 0)
       {
         // Decrypt:
-        string decrypted =AES256.Decrypt(source, arrayPassword);
-        
+        string decrypted = AES256.Decrypt(source, arrayPassword);
+
         JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(
           decrypted
         ).ForEach(e =>
@@ -242,7 +238,7 @@ namespace PasswordManager.Security
           PasswordEntries.Add(
             new GenericPasswordEntry(
               e["Name"],
-              (encryptArrayKey == null || 
+              (encryptArrayKey == null ||
                 e["Name"].Equals(PasswordManagerData.FAKE_PASSWORD_KEY)) ?
                   e["Password"] : AES256.Encrypt(e["Password"], encryptArrayKey),
               d

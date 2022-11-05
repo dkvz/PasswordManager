@@ -63,12 +63,7 @@ namespace PasswordManager.Security
       }
 
       // Generate the salt:
-      byte[] salt = new byte[SaltBitSize / 8];
-      using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
-      {
-        // Fill the array with random values:
-        rngCsp.GetBytes(salt);
-      }
+      var salt = GenerateRandomByteArray(SaltBitSize / 8);
 
       using (var keyDerivationFunction = new Rfc2898DeriveBytes(key, salt, Iterations))
       {
@@ -155,6 +150,11 @@ namespace PasswordManager.Security
       }
 
       return decrypt(ciphertext, key);
+    }
+
+    public static byte[] GenerateRandomByteArray(int length)
+    {
+      return RandomNumberGenerator.GetBytes(length);
     }
 
     public static byte[] DecryptToByteArray(string ciphertext, byte[] key)

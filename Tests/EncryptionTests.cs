@@ -65,5 +65,12 @@ namespace PasswordManagerApp.Tests
       );
     }
 
+    [Test]
+    public void CanGenerateRandomByteArray()
+    {
+      var sut = AES256.GenerateRandomByteArray(16);
+      Assert.AreEqual(16, sut.Length);
+    }
+
   }
 }
