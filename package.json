@@ -6,6 +6,7 @@
   "scripts": {
     "test": "dotnet test Tests",
     "dev": "npm run dev -w=PasswordManagerApp",
+    "dev:bind-all": "npm run dev:bind-all -w=PasswordManagerApp",
     "build-assets": "npm run build-assets -w=PasswordManagerApp",
     "build-win": "npm run build-win -w=PasswordManagerApp",
     "build-linux": "npm run build-linux -w=PasswordManagerApp"

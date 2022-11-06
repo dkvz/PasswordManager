@@ -46,10 +46,10 @@
       </div>
 
       <div class="sequence-grid">
-        @for(int y = 0; y < Model.GridHeight; y++)
+        @for (int y = 0; y < Model.GridHeight; y++)
         {
           <div class="sequence-grid-row">
-            @for(int x = 0; x < Model.GridWidth; x++)
+            @for (int x = 0; x < Model.GridWidth; x++)
             {
               <button type="button" data-y="@(y+1)" data-x="@(x+1)">&nbsp;</button>
             }
@@ -116,9 +116,9 @@
 </div>
 
 @section Scripts {
-  <script>
+<script>
   if (!window.Uint8Array || !window.crypto || !window.crypto.subtle || !window.fetch) {
     window.location.href = '/unsupported';
   }
-  </script>
+</script>
 }
