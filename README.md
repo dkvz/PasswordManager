@@ -534,6 +534,18 @@ I'm going to add a todo post to try and get the HTTPS Kestrel support.
 
 # TODO
 - [ ] Put parcel back as a dependency, I've had breaking changes making me work overtime to fix it.
+- [ ] Add some sort of check that shows a warning if the connection is not in HTTPS.
+- [ ] Double check if the ClientIp we save in SecureSession objects works with X-Forwarded-For when deployed in production, because there's some chance it doesn't.
+- [ ] SessionManager is not thread safe. But I think that would be one of the worst cost/benefit change I could make.
+- [ ] I got rid of the Consent cookie but now there's another one called "anti forgery" or something. What is that about?
+- [ ] I do not know what happens if some of the source strings provided are empty - I should check for empty data in the API endpoints.
+- [ ] Lock an IP address that does too many failed login attempts.
+- [ ] We could hook into some possible "tab got focus" event that would check if we should automatically disconnect or not.
+- [ ] In the JS code there are byte arrays I could clean up from memory at some point but I usually don't bother.
+- [ ] Add a button to clear the clipboard.
+- [ ] Rather than using Console.Error.WriteLine et al. in many places I should inject the ILogger and use that.
+- [ ] Try to get kestrel to serve HTTPS with the Linux production build as well. For some reason it's not binding https://localhost:5001 with the self-contained Linux build. I have to test by running the dll with dotnet and not using the self-contained approach to see if that fixes it.
+- [ ] I should have some sort of error callback for the email notifications and/or add an API endpoint only available on localhost that sends a test email.
 - [x] Remove the old project from Github -> Made it private.
 - [x] Use CSS variables while I'm at it.
 - [x] There doesn't seem to be a handler for error 404s -> Quick fixed this by adding `app.UseStatusCodePages();``in Startup.cs. Not awesome but it works.
@@ -542,35 +554,20 @@ I'm going to add a todo post to try and get the HTTPS Kestrel support.
 - [x] The `asp-append-version="true"` thing doesn't work at all with the production release, the version ID's are gone. -> It does work, the correct exe is in PasswordManagerApp\bin\Release\netcoreapp2.2\win-x64\publish or equivalent.
 - [x] I have a 404 on the source maps - They don't seem to be available through Kestrel, probably because they're referenced as being at the root in the files (as in /sites.css.map instead of /assets/sites.css/map) (we juste need to add --public-url to parcel).
 - [x] Add Babel just for the fun of it and also because my cheap browser check in Index.cshtml encompasses browsers that have no ES6 support -> Parcel just auto babelifies ES6.
-- [ ] Double check if the ClientIp we save in SecureSession objects works with X-Forwarded-For when deployed in production, because there's some chance it doesn't.
 - [x] Uses or Random in PasswordManagerTools should be replaced with the secured version - It's a TODO item in that project as well -> For what it's used over there it does'nt matter.
-- [ ] SessionManager is not thread safe. But I think that would be one of the worst cost/benefit change I could make.
 - [x] A cookie called .AspNet.Consent is sent with requests. We might want to get rid of it.
-- [ ] I got rid of the Consent cookie but now there's another one called "anti forgery" or something. What is that about?
 - [x] TestRequest.cs should be removed.
 - [x] Re-test the whole session clean up thing.
 - [x] The file selected at login has to be sanitized before it's used on the backend. We should probably just send the position in the list.
 - [x] Change the title when the view changes.
-- [ ] I do not know what happens if some of the source strings provided are empty - I should check for empty data in the API endpoints.
 - [x] Add some sort of spinner when doing the API requests.
 - [x] There should also be some sort of spinner while we're initializing the index page and processing the JS in site.js.
 - [x] I don't think the calls to System.GC.Collect() do anything super helpful in the PasswordManagerTools project. I feel like they're slowing everything down by a lot. I should remove them.
 - [x] The password list (HTML select element) looks terrible. Can we do something with the CSS? -> Not really if using the select element as is.
 - [x] Add a margin left to the close icon for the toaster message.
-- [ ] Add some sort of check that shows a warning if the connection is not in HTTPS.
-- [ ] Lock an IP address that does too many failed login attempts.
-- [ ] App. directory structure is messed up. I should have a sln project referencing all the others (including the Test project) and have better naming for the directories with C# or JS code.
+- [x] App. directory structure is messed up. I should have a sln project referencing all the others (including the Test project) and have better naming for the directories with C# or JS code.
 - [x] Show an unsaved changes warning message (using the warning colours) in the notification section when saves need to happen, also show the save button (hide otherwise).
-- [ ] I have serious issues with using text inputs in flex rows, when you resize to minimum width some of the inputs are sticking out of the viewport. We might need a width: 100% on body or something (might also be I need display: block instead of inline).
 - [x] To open a new session I created something in SessionManager that returns an enum member. To save the session I did it almost entirely in ApiController. I should be consistent here and pick one or the other. Some methods in ISessionManager won't be needed anymore after the refactoring.
-- [ ] We could have a big setTimeout that automatically disconnects the session for inactivity, reset or disable it when interacting with the UI.
 - [x] I'm not super sure what happens if a password is longer than 16 characters. It should pad to always be a multiple of 16 bytes but I should test it. In the same vein I also need to test a password that is exactly 16 characters to see if my JS de-padding works in that case too.
 - [x] The password field on the second slide show the number of characters in the password; I should probably use placeholder text or find an option to hide the number of characters.
-- [ ] In the JS code there are byte arrays I could clean up from memory at some point but I usually don't bother.
 - [x] The copy to clipboard thingy should first look if hiddenPasswordInput.value is empty and copy the visible field instead in that case.
-- [ ] Add a button to clear the clipboard.
-- [ ] Rather than using Console.Error.WriteLine et al. in many places I should inject the ILogger and use that.
-- [ ] I should have some sort of error callback for the email notifications and/or add an API endpoint only available on localhost that sends a test email.
-- [ ] Limit the amount of data the process is logging onto the console in production.
-- [ ] Try to get kestrel to serve HTTPS with the Linux production build as well. For some reason it's not binding https://localhost:5001 with the self-contained Linux build. I have to test by running the dll with dotnet and not using the self-contained approach to see if that fixes it.
-- [ ] Version strategy?
