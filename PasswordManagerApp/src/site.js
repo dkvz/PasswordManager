@@ -117,6 +117,7 @@ if (loginForm) {
 
   const updateEntryList = (names) => {
     removeNodesFromElement(nameSelect);
+    nameSelect.value = null;
     names.forEach(
       (e) =>
         addHtmlOption(
@@ -237,16 +238,17 @@ if (loginForm) {
 
   filterInput.addEventListener('input', (e) => {
     if (e.currentTarget.value) {
+      const filterLowCase = e.currentTarget.value.toLowerCase();
       updateEntryList(
-        state.names.filter(n => 
-            n.name.toLowerCase().indexOf(e.currentTarget.value) >= 0)
+        state.names.filter(n =>
+          n.name.toLowerCase().indexOf(filterLowCase) >= 0)
       );
     } else {
       updateEntryList(state.names);
     }
   });
-  
-  
+
+
   // Events for the second slide:
   // ----------------------------
 
@@ -382,7 +384,7 @@ if (loginForm) {
     getSelectedEntry();
   });
 
-  document.getElementById('showHideBtn').addEventListener('click', () => 
+  document.getElementById('showHideBtn').addEventListener('click', () =>
     showPassword(!state.passwordVisible)
   );
 
@@ -390,8 +392,8 @@ if (loginForm) {
     if (navigator.clipboard) {
       if (state.entryId) {
         navigator.clipboard.writeText(
-          state.passwordVisible ? 
-            passwordInput.value : 
+          state.passwordVisible ?
+            passwordInput.value :
             hiddenPasswordInput.value
         );
       }
