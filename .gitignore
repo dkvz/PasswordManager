@@ -34,3 +34,5 @@ appsettings.production.json
 appsettings.Production.json
 .vscode
 .parcel-cache
+*.pwd
+pwdfile
