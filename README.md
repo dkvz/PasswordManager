@@ -37,6 +37,14 @@ export CLR_ICU_VERSION_OVERRIDE=71.1
 ```
 I guess that should be fixed someday.
 
+It's not, and now my version is:
+```
+export CLR_ICU_VERSION_OVERRIDE=75.1
+export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+```
+
+OK at this point I just reinstalled .NET 6 and it worked.
+
 ## Building for production
 It's discussed in a later section, I haven't tried building to production with the new project layout yet.
 
