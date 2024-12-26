@@ -181,6 +181,15 @@ You can use rsyslog to split the file to its own separate log (app will still lo
 
 The log file might not get rotated, you can configure that with logrotate.
 
+#### Changes for modern distributions
+I compile using .NET6 and use the "publish" directory as mentioned above. However, it won't start for several reasons.
+
+- The env variable `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1` is necessary to be able to run and should be added to the systemd script.
+
+- We need a version of `libssl` - On Debian the following works: `apt intall libssl-dev`.
+
+- Don't forget to have the relevant `appsettings.json` file ready with the required configuration keys for notifications, secret sequence, etc.
+
 #### Reverse proxy configuration
 I'm going to use the simplest configuration I can.
 
