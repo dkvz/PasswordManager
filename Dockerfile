@@ -3,6 +3,7 @@ FROM debian:12
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV DOTNET_PRINT_TELEMETRY_MESSAGE=false
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
 
 RUN apt-get update && apt-get install -y libssl-dev vim \
   && rm -rf /var/lib/apt/lists/* \
