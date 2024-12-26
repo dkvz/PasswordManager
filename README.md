@@ -208,6 +208,8 @@ The app runs on port 5000 internally.
 
 Once a container is started I manually copy the required files to it (a volume or bind mount could be used for the data directory) using `docker copy`.
 
+I pushed a public image at `dkvz/password-manager:latest` on the Docker Hub.
+
 ### References
 These two pages have a lot of useful information:
 * https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli
