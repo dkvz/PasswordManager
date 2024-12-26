@@ -197,6 +197,17 @@ Just keep in mind that if your dotnet app is listening to port 5001 you can use 
 
 Otherwise, the HTTP port is 5000.
 
+### Using Docker
+I added a Dockerfile which requires a few steps first:
+
+- Run `npm run build-linux` from the project root.
+- Prepare a working `application.Production.json` file.
+- Prepare the .pwd files you want to use.
+
+The app runs on port 5000 internally.
+
+Once a container is started I manually copy the required files to it (a volume or bind mount could be used for the data directory) using `docker copy`.
+
 ### References
 These two pages have a lot of useful information:
 * https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli
