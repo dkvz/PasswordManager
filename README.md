@@ -210,6 +210,11 @@ Once a container is started I manually copy the required files to it (a volume o
 
 I pushed a public image at `dkvz/password-manager:latest` on the Docker Hub.
 
+Example of running the CT:
+```
+docker run -d --name password-manager -p 127.0.0.1:5000:5000 dkvz/password-manager:latest
+```
+
 ### References
 These two pages have a lot of useful information:
 * https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-cli
